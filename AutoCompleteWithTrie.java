@@ -69,7 +69,7 @@ public class AutoCompleteWithTrie {
 			}
 			// if prefix is present, we want to find all the nodes branching from the last
 			// char of prefix
-			helper(prefix.substring(0, prefix.length() - 1), current, result);
+			helper(prefix, current, result);
 		}
 		return result;
 	}
@@ -77,12 +77,12 @@ public class AutoCompleteWithTrie {
 	private void helper(String prefix, TrieNode node, List<String> result) {
 		// check if the node is marked as end of word, if so add to result set.
 		if (node.isEndOfWord)
-			result.add(prefix + node.data);
+			result.add(prefix);
 		// we want to find all the words branched from prefix, so look in all the child
 		// nodes starting prefix recursively
 		for (Entry<Character, TrieNode> e : node.children.entrySet()) {
 			TrieNode childNode = e.getValue();
-			helper(prefix + node.data, childNode, result);
+			helper(prefix + childNode.data, childNode, result);
 		}
 	}
 
